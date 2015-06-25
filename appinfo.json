@@ -4,7 +4,7 @@
   "longName": "Vault-Tec",
   "companyName": "James Downs",
   "versionCode": "1",
-  "versionLabel": "1.0",
+  "versionLabel": "1.1",
   "sdkVersion": "3",
   "targetPlatforms": [
   "aplite", 
@@ -17,6 +17,12 @@
   },
   "resources": {
     "media": [
+      {
+        "file": "images/icon.png",
+        "menuIcon": true,
+        "name": "ICON",
+        "type": "png"
+      },
       {
         "file": "images/vaulttec.png",
         "name": "BACKGROUND",
