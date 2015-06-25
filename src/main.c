@@ -15,15 +15,18 @@ static void update_date() {
 	text_layer_set_text(s_date_label, s_date_buffer);
 }
 
+//Updates all the hands on the screen
 static void update_hands(Layer *layer, GContext *ctx) {
 	time_t epoch = time(NULL);
 	struct tm *t = localtime(&epoch);
 	
+	//These are what allow the hands to rotate. You could figure the math out or just copy paste for minute, hour, seconds, respectively.
 	gpath_rotate_to(s_minute_arrow, TRIG_MAX_ANGLE * t->tm_min / 60);
 	gpath_rotate_to(s_hour_arrow, (TRIG_MAX_ANGLE * (((t->tm_hour % 12) * 6) + (t->tm_min / 10))) / (12 * 6));
 	gpath_rotate_to(s_second_hand, TRIG_MAX_ANGLE * t->tm_sec / 60);
 	gpath_rotate_to(s_second_head, TRIG_MAX_ANGLE * t->tm_sec / 60);
 	
+	//These sections decide which colors to use and if we are filling the shape, outlining it, or both.
 	#ifdef PBL_COLOR
 		graphics_context_set_fill_color(ctx, GColorPastelYellow);
 		graphics_context_set_stroke_color(ctx, GColorDarkGreen);
@@ -60,7 +63,10 @@ static void update_hands(Layer *layer, GContext *ctx) {
 	update_date();
 }
 
+//Updates the battery. The first thing also updates the date background as it actually reduces code by doing this
 static void update_battery(Layer *layer, GContext *ctx) {
+	//This is a bit of a wonky thing. I use this to make the battery percentage fall between 9 and 3 on the clock. 100 * .3 + 15 = 45 which is 9.
+	//The hand is drawn inverted so that it will go right to left instead of left to right.
 	bat = (battery_state_service_peek().charge_percent * .3) + 15;
 	
 	#ifdef PBL_COLOR
@@ -81,6 +87,7 @@ static void update_battery(Layer *layer, GContext *ctx) {
 		graphics_context_set_stroke_color(ctx, GColorBlack);
 	#endif
 	
+	//Because of what I did above, I can use the same math used for minutes to determine where the battery hand falls
 	gpath_rotate_to(s_battery_arrow, TRIG_MAX_ANGLE * bat / 60);
 	
 	gpath_draw_filled(ctx, s_battery_arrow);
@@ -91,7 +98,9 @@ static void update_battery(Layer *layer, GContext *ctx) {
 	graphics_fill_circle(ctx, GPoint(72,116), 3);
 }
 
+//This allows the screen to be redrawn each time it is called
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+	//On single window apps, you can choose any layer you want to mark dirty. The entire window tree gets marked dirty anyway.
 	layer_mark_dirty(s_hands_layer);
 }
 
@@ -101,12 +110,14 @@ static void main_window_load(Window *window) {
 	
 	s_date_font = fonts_load_resource_font(RESOURCE_ID_MONOFONT_18);
 	
+	//These names are taken from hands.h
 	s_minute_arrow = gpath_create(&MINUTE_HAND_POINTS);
 	s_hour_arrow = gpath_create(&HOUR_HAND_POINTS);
 	s_second_hand = gpath_create(&SECOND_HAND_POINTS);
 	s_second_head = gpath_create(&SECOND_HEAD_POINTS);
 	s_battery_arrow = gpath_create(&BATTERY_HAND_POINTS);
 	
+	//This positions the center of the arrow. Note the battery is not center as that'd be silly
 	gpath_move_to(s_minute_arrow, center);
 	gpath_move_to(s_hour_arrow, center);
 	gpath_move_to(s_second_hand, center);
@@ -164,6 +175,7 @@ static void init() {
 	window_handlers(s_main_window, main_window_load, main_window_unload);
 	window_stack_push(s_main_window, true);
 	
+	//This makes it so we mark the window dirty every second so the watch updates each second.
 	tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
 }
 
