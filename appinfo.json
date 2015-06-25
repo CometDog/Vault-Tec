@@ -1,0 +1,32 @@
+{
+  "uuid": "0d1c1f22-9517-42b6-a7a6-5859ceeba5ee",
+  "shortName": "Vault-Tec",
+  "longName": "Vault-Tec",
+  "companyName": "James Downs",
+  "versionCode": "1",
+  "versionLabel": "1.0",
+  "sdkVersion": "3",
+  "targetPlatforms": [
+  "aplite", 
+  "basalt"
+  ],
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+  },
+  "resources": {
+    "media": [
+      {
+        "file": "images/vaulttec.png",
+        "name": "BACKGROUND",
+        "type": "png"
+      },
+      {
+        "file": "fonts/monofont.ttf",
+        "name": "MONOFONT_18",
+        "type": "font"
+      }
+    ]
+  }
+}
