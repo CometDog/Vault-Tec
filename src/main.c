@@ -28,7 +28,7 @@ static void update_hands(Layer *layer, GContext *ctx) {
 	
 	//These sections decide which colors to use and if we are filling the shape, outlining it, or both.
 	#ifdef PBL_COLOR
-		graphics_context_set_fill_color(ctx, GColorWhite);
+		graphics_context_set_fill_color(ctx, GColorPastelYellow);
 		graphics_context_set_stroke_color(ctx, GColorBlack);
 	#else
 		graphics_context_set_fill_color(ctx, GColorWhite);
@@ -45,12 +45,13 @@ static void update_hands(Layer *layer, GContext *ctx) {
 	
 	gpath_draw_filled(ctx, s_second_hand);
 	
-	graphics_context_set_fill_color(ctx, GColorWhite);
 	#ifdef PBL_COLOR
 		graphics_context_set_stroke_color(ctx, GColorRed);
+		graphics_context_set_fill_color(ctx, GColorPastelYellow);
 		graphics_context_set_stroke_width(ctx, 2);
 	#else
 		graphics_context_set_stroke_color(ctx, GColorBlack);
+		graphics_context_set_fill_color(ctx, GColorWhite);
 	#endif
 	
 	gpath_draw_filled(ctx, s_second_head);
@@ -70,7 +71,7 @@ static void update_battery(Layer *layer, GContext *ctx) {
 	bat = (battery_state_service_peek().charge_percent * .3) + 15;
 	
 	#ifdef PBL_COLOR
-		graphics_context_set_fill_color(ctx, GColorWhite);
+		graphics_context_set_fill_color(ctx, GColorPastelYellow);
 		graphics_fill_rect(ctx, GRect(105,74,20,20), 0, GCornerNone);
 
 		graphics_context_set_stroke_color(ctx, GColorBlack);
@@ -80,7 +81,7 @@ static void update_battery(Layer *layer, GContext *ctx) {
 	graphics_draw_rect(ctx, GRect(105,74,20,20));
 	
 	#ifdef PBL_COLOR
-		graphics_context_set_fill_color(ctx, GColorWhite);
+		graphics_context_set_fill_color(ctx, GColorPastelYellow);
 		graphics_context_set_stroke_color(ctx, GColorBlack);
 	#else
 		graphics_context_set_fill_color(ctx, GColorWhite);
