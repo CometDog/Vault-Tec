@@ -28,8 +28,8 @@ static void update_hands(Layer *layer, GContext *ctx) {
 	
 	//These sections decide which colors to use and if we are filling the shape, outlining it, or both.
 	#ifdef PBL_COLOR
-		graphics_context_set_fill_color(ctx, GColorPastelYellow);
-		graphics_context_set_stroke_color(ctx, GColorDarkGreen);
+		graphics_context_set_fill_color(ctx, GColorWhite);
+		graphics_context_set_stroke_color(ctx, GColorBlack);
 	#else
 		graphics_context_set_fill_color(ctx, GColorWhite);
 		graphics_context_set_stroke_color(ctx, GColorBlack);
@@ -47,7 +47,7 @@ static void update_hands(Layer *layer, GContext *ctx) {
 	
 	graphics_context_set_fill_color(ctx, GColorWhite);
 	#ifdef PBL_COLOR
-		graphics_context_set_stroke_color(ctx, GColorOrange);
+		graphics_context_set_stroke_color(ctx, GColorRed);
 		graphics_context_set_stroke_width(ctx, 2);
 	#else
 		graphics_context_set_stroke_color(ctx, GColorBlack);
@@ -73,15 +73,15 @@ static void update_battery(Layer *layer, GContext *ctx) {
 		graphics_context_set_fill_color(ctx, GColorWhite);
 		graphics_fill_rect(ctx, GRect(105,74,20,20), 0, GCornerNone);
 
-		graphics_context_set_stroke_color(ctx, GColorDarkGreen);
+		graphics_context_set_stroke_color(ctx, GColorBlack);
 	#else
 		graphics_context_set_stroke_color(ctx, GColorBlack);
 	#endif
 	graphics_draw_rect(ctx, GRect(105,74,20,20));
 	
 	#ifdef PBL_COLOR
-		graphics_context_set_fill_color(ctx, GColorPastelYellow);
-		graphics_context_set_stroke_color(ctx, GColorDarkGreen);
+		graphics_context_set_fill_color(ctx, GColorWhite);
+		graphics_context_set_stroke_color(ctx, GColorBlack);
 	#else
 		graphics_context_set_fill_color(ctx, GColorWhite);
 		graphics_context_set_stroke_color(ctx, GColorBlack);
@@ -142,7 +142,7 @@ static void main_window_load(Window *window) {
 	text_layer_set_font(s_date_label, s_date_font);
 	
 	#ifdef PBL_COLOR
-		text_layer_set_colors(s_date_label, GColorDarkGreen, GColorClear);
+		text_layer_set_colors(s_date_label, GColorCobaltBlue, GColorClear);
 	#else
 		text_layer_set_colors(s_date_label, GColorBlack, GColorClear);
 	#endif
